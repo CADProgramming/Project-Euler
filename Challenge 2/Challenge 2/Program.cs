@@ -10,20 +10,20 @@ namespace Challenge_2
     {
         static void Main(string[] args)
         {
-            int total = 0;
-            int last = 1;
-            int current = 1;
+            int last = 2;
+            int current = 8;
 
-            while ((current + last) < 4000000)
+            int total = last + current;
+
+            while (((4 * current) + last) < 4000000)
             {
+                //Only goes through even numbers
                 int newLast = current;
+                current *= 4;
                 current += last;
                 last = newLast;
 
-                if (current % 2 == 0)
-                {
-                    total += current;
-                }
+                total += current;
             }
 
             Console.WriteLine(total);
