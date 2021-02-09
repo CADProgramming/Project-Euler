@@ -110,20 +110,59 @@ namespace Challenge_13
             "72107838435069186155435662884062257473692284509516\n" +
             "20849603980134001723930671666823555245252804609722\n" +
             "53503534226472524250874054075591789781264330331690";
+            const int NUMBERCOUNT = 10;
+            const int NUMBERLENGTH = 50;
 
             string[] stringNumbers = numbers.Split('\n');
-            ulong sum = 0;
 
-            foreach (string number in stringNumbers)
+            int[] placeValueSums = new int[NUMBERLENGTH];
+
+            for (int i = 1; i <= NUMBERLENGTH; i++)
             {
-                sum += Convert.ToUInt64(number);
+                foreach (string numberString in stringNumbers)
+                {
+                    if (i <= numberString.Length)
+                    {
+                        placeValueSums[i - 1] += int.Parse(numberString[numberString.Length - i].ToString());
+                    }
+                }
             }
 
-            for (int i = 0; i < 10; i++)
+            long sum = 0;
+            int droppedNumbers = 0;
+
+            for (int i = 0; i < placeValueSums.Length; i++)
             {
-                Console.Write(sum.ToString()[i]);
+                if (droppedNumbers > 0)
+                {
+                    sum += Convert.ToInt64(placeValueSums[i]) * Convert.ToInt64(Math.Pow(10, i - droppedNumbers));
+                }
+                else
+                {
+                    sum += Convert.ToInt64(placeValueSums[i]) * Convert.ToInt64(Math.Pow(10, i));
+                }
+                int numberLength = sum.ToString().Length;
+
+                if (numberLength > NUMBERCOUNT)
+                {
+                    string sumString = sum.ToString();
+                    string frontSum = "";
+
+                    if (sumString.Length > NUMBERCOUNT)
+                    {
+                        droppedNumbers += sumString.Length - NUMBERCOUNT;
+                    }
+                    
+                    for (int n = 0; n < NUMBERCOUNT; n++)
+                    {
+                        frontSum += sumString[n];
+                    }
+
+                    sum = long.Parse(frontSum);
+                }
             }
 
+            Console.WriteLine(sum);
             Console.ReadLine();
         }
     }
