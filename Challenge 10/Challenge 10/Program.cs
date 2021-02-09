@@ -10,7 +10,7 @@ namespace Challenge_7
     {
         static void Main(string[] args)
         {
-            int sum = 0;
+            ulong sum = 0;
 
             for (int i = 2; i < 2000000; i++)
             {
@@ -27,7 +27,7 @@ namespace Challenge_7
 
                 if (prime)
                 {
-                    sum += i;
+                    sum += Convert.ToUInt64(i);
                 }
             }
 
